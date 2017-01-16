@@ -11,6 +11,10 @@
         <attr name="labelTextColor" format="color"/>
         <!--标签字体大小-->
         <attr name="labelTextSize" format="dimension"/>
+        <!--标签宽度权重,起点为左上角-->
+        <attr name="labelWidthWeight" format="integer"/>
+        <!--标签高度权重,起点为左上角-->
+        <attr name="labelHeightWeight" format="integer"/>
 
     </declare-styleable>
 

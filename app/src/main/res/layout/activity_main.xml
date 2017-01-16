@@ -26,7 +26,9 @@
         app:labelBgColor="@color/colorPrimaryDark"
         app:labelText="呵呵"
         app:labelTextColor="@android:color/holo_green_light"
-        app:labelTextSize="11sp" />
+        app:labelTextSize="11sp"
+        app:labelWidthWeight="1"
+        app:labelHeightWeight="1"/>
 
     <com.foxmail.aroundme.library.RoundRectLabelView
         android:layout_width="wrap_content"
@@ -36,6 +38,8 @@
         app:labelBgColor="@color/colorPrimaryDark"
         app:labelText="嘿嘿"
         app:labelTextColor="@android:color/holo_orange_dark"
-        app:labelTextSize="13sp" />
+        app:labelTextSize="13sp"
+        app:labelWidthWeight="3"
+        app:labelHeightWeight="3"/>
 
 </LinearLayout>

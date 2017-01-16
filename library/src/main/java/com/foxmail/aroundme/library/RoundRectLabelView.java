@@ -1,5 +1,6 @@
 package com.foxmail.aroundme.library;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -54,16 +55,20 @@ public class RoundRectLabelView extends View {
     }
 
     private void initAttr(Context context, AttributeSet attrs) {
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.LabelTextView);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.LabelTextView);
 
-        mLabelBgColor = ta.getColor(R.styleable.LabelTextView_labelBgColor, mLabelBgColor);
-        mLabelTextColor = ta.getColor(R.styleable.LabelTextView_labelTextColor, mLabelTextColor);
+        mLabelBgColor = typedArray.getColor(R.styleable.LabelTextView_labelBgColor, mLabelBgColor);
+        mLabelTextColor = typedArray.getColor(R.styleable.LabelTextView_labelTextColor, mLabelTextColor);
+        mLabelTextSize = typedArray.getDimension(R.styleable.LabelTextView_labelTextSize, mLabelTextSize);
+        mLabelText = typedArray.getString(R.styleable.LabelTextView_labelText);
+        weightW = typedArray.getInteger(R.styleable.LabelTextView_labelWidthWeight, weightW);
+        weightH = typedArray.getInteger(R.styleable.LabelTextView_labelHeightWeight, weightH);
 
-        mLabelTextSize = ta.getDimension(R.styleable.LabelTextView_labelTextSize, mLabelTextSize);
+        typedArray.recycle();
 
-        mLabelText = ta.getString(R.styleable.LabelTextView_labelText);
-
-        ta.recycle();
+        if(weightW <= 0 || weightH <= 0) {
+            throw new RuntimeException("labelWidthWeight or labelHeightWeight must be greater than 0");
+        }
 
         initTextPaint();
         initTrianglePaint();
@@ -115,6 +120,7 @@ public class RoundRectLabelView extends View {
 
     }
 
+    @TargetApi(19)
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -134,7 +140,7 @@ public class RoundRectLabelView extends View {
         r.right = width;
         r.bottom = height;
         pathRountRect.addRoundRect(r, 32, 32, Path.Direction.CCW);
-        pathTriangle.op(pathRountRect, Path.Op.INTERSECT);
+        pathTriangle.op(pathRountRect,  Path.Op.INTERSECT);
         canvas.drawPath(pathTriangle, mTrianglePaint);
         canvas.drawPath(pathRountRect, mRoundRectPaint);
 
