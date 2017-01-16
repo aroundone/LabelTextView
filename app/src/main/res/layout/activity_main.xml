@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.foxmail.aroundme.labeltextview.MainActivity">
+
+    <com.foxmail.aroundme.library.RoundRectLabelView
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_margin="3dp"
+        android:layout_weight="1"
+        app:labelBgColor="@color/colorPrimaryDark"
+        app:labelText="哈哈"
+        app:labelTextColor="@android:color/holo_blue_light"
+        app:labelTextSize="9sp" />
+
+    <com.foxmail.aroundme.library.RoundRectLabelView
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_margin="3dp"
+        android:layout_weight="1"
+        app:labelBgColor="@color/colorPrimaryDark"
+        app:labelText="呵呵"
+        app:labelTextColor="@android:color/holo_green_light"
+        app:labelTextSize="11sp" />
+
+    <com.foxmail.aroundme.library.RoundRectLabelView
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_margin="3dp"
+        android:layout_weight="1"
+        app:labelBgColor="@color/colorPrimaryDark"
+        app:labelText="嘿嘿"
+        app:labelTextColor="@android:color/holo_orange_dark"
+        app:labelTextSize="13sp" />
+
+</LinearLayout>

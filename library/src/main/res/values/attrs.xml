@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LabelTextView">
+
+        <!--标签属性-->
+        <!--标签背景颜色-->
+        <attr name="labelBgColor" format="color"/>
+        <!--标签内容-->
+        <attr name="labelText" format="string"/>
+        <!--标签字体颜色-->
+        <attr name="labelTextColor" format="color"/>
+        <!--标签字体大小-->
+        <attr name="labelTextSize" format="dimension"/>
+
+    </declare-styleable>
+
+</resources>
