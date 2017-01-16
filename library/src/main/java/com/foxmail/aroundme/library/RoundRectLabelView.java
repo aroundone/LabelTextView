@@ -15,18 +15,40 @@ import android.view.View;
 
 /**
  * Created by gzl on 1/16/17.
+ *
+ * RoundRectLabelView
  */
 
 public class RoundRectLabelView extends View {
 
+    /**
+     * 标签文字
+     */
+    //画笔
     private Paint mLabelTextPaint;
-    private int mLabelTextColor = Color.YELLOW;
+    //文字颜色
+    private int mLabelTextColor = Color.WHITE;
+    //文字大小
     private float mLabelTextSize = sp2px(8);
+    //文字内容
     private String mLabelText = "Hot";
-    private int mLabelBgColor = Color.parseColor("#66000000");
+    //背景颜色
+    private int mLabelBgColor = Color.BLUE;
+    //覆盖图层画笔
     private Paint mTrianglePaint;
 
+    /**
+     * 圆角矩形
+     */
+    //画笔
     private Paint mRoundRectPaint;
+    //背景颜色
+    private int mRoundRectBg = Color.WHITE;
+    //边长背景颜色
+    private int mRoundRectBorderBg = Color.BLACK;
+    //圆角半径
+    private float mRoundRectRadius = dp2px(16);
+
 
     //控件总宽高
     private int width;
@@ -64,6 +86,10 @@ public class RoundRectLabelView extends View {
         weightW = typedArray.getInteger(R.styleable.LabelTextView_labelWidthWeight, weightW);
         weightH = typedArray.getInteger(R.styleable.LabelTextView_labelHeightWeight, weightH);
 
+        mRoundRectBg = typedArray.getColor(R.styleable.LabelTextView_roundRectBg, mRoundRectBg);
+        mRoundRectBorderBg = typedArray.getColor(R.styleable.LabelTextView_roundRectBorderBg, mRoundRectBorderBg);
+        mRoundRectRadius = typedArray.getDimension(R.styleable.LabelTextView_roundRectRadius, mRoundRectRadius);
+
         typedArray.recycle();
 
         if(weightW <= 0 || weightH <= 0) {
@@ -97,7 +123,7 @@ public class RoundRectLabelView extends View {
     private void initRoundRectPaint() {
         //绘制圆角矩形画笔
         mRoundRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mRoundRectPaint.setColor(mLabelBgColor);
+        mRoundRectPaint.setColor(mRoundRectBorderBg);
         mRoundRectPaint.setStyle(Paint.Style.STROKE);
         mRoundRectPaint.setAntiAlias(true);
     }
@@ -139,7 +165,7 @@ public class RoundRectLabelView extends View {
         r.top = 0;
         r.right = width;
         r.bottom = height;
-        pathRountRect.addRoundRect(r, 32, 32, Path.Direction.CCW);
+        pathRountRect.addRoundRect(r, mRoundRectRadius, mRoundRectRadius, Path.Direction.CCW);
         pathTriangle.op(pathRountRect,  Path.Op.INTERSECT);
         canvas.drawPath(pathTriangle, mTrianglePaint);
         canvas.drawPath(pathRountRect, mRoundRectPaint);

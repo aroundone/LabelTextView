@@ -16,6 +16,14 @@
         <!--标签高度权重,起点为左上角-->
         <attr name="labelHeightWeight" format="integer"/>
 
+        <!--圆角矩形-->
+        <!--矩形内部颜色-->
+        <attr name="roundRectBg" format="color"/>
+        <!--矩形边界颜色-->
+        <attr name="roundRectBorderBg" format="color"/>
+        <!--矩形四边半径-->
+        <attr name="roundRectRadius" format="dimension"/>
+
     </declare-styleable>
 
 </resources>

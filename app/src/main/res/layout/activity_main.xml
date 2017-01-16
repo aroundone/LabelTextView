@@ -16,7 +16,9 @@
         app:labelBgColor="@color/colorPrimaryDark"
         app:labelText="哈哈"
         app:labelTextColor="@android:color/holo_blue_light"
-        app:labelTextSize="9sp" />
+        app:labelTextSize="9sp"
+        app:roundRectBg="@android:color/holo_blue_light"
+        app:roundRectRadius="15dp"/>
 
     <com.foxmail.aroundme.library.RoundRectLabelView
         android:layout_width="wrap_content"
@@ -28,7 +30,9 @@
         app:labelTextColor="@android:color/holo_green_light"
         app:labelTextSize="11sp"
         app:labelWidthWeight="1"
-        app:labelHeightWeight="1"/>
+        app:labelHeightWeight="1"
+        app:roundRectBg="@android:color/holo_blue_light"
+        app:roundRectRadius="20dp"/>
 
     <com.foxmail.aroundme.library.RoundRectLabelView
         android:layout_width="wrap_content"
@@ -40,6 +44,8 @@
         app:labelTextColor="@android:color/holo_orange_dark"
         app:labelTextSize="13sp"
         app:labelWidthWeight="3"
-        app:labelHeightWeight="3"/>
+        app:labelHeightWeight="3"
+        app:roundRectBg="@android:color/holo_blue_light"
+        app:roundRectRadius="10dp"/>
 
 </LinearLayout>
