@@ -1,29 +1,23 @@
 package com.foxmail.aroundme.library;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.text.method.KeyListener;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
+import android.widget.TextView;
 
 /**
- * Created by gzl on 1/16/17.
- *
- * RoundRectLabelView
+ * Created by gzl on 1/17/17.
  */
 
-public class RoundRectLabelView extends View {
+public class LabelTextView extends TextView{
 
     /**
      * 标签文字
@@ -59,15 +53,6 @@ public class RoundRectLabelView extends View {
     //圆角半径
     private float mRoundRectRadius = dp2px(16);
 
-    /**
-     * 内容文字
-     */
-    private Paint mContentPaint;
-    private int mContextTextColor = Color.BLACK;
-    private float mContextTextSize = sp2px(14);
-    private String mContentText = "Content";
-    private int mContentHeight;
-
     //控件总宽高
     private int width;
     private int height;
@@ -82,17 +67,18 @@ public class RoundRectLabelView extends View {
     //高度的权重
     private float weightH = 2;
 
-    public RoundRectLabelView(Context context) {
+    public LabelTextView(Context context) {
         this(context, null);
     }
 
-    public RoundRectLabelView(Context context, AttributeSet attrs) {
+    public LabelTextView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RoundRectLabelView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LabelTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttr(context, attrs);
+
     }
 
     private void initAttr(Context context, AttributeSet attrs) {
@@ -114,11 +100,6 @@ public class RoundRectLabelView extends View {
         mRoundRectRadius = typedArray.getDimension(R.styleable.LabelTextView_roundRectRadius, mRoundRectRadius);
         mRoundRectBorderWidth = typedArray.getDimension(R.styleable.LabelTextView_roundRectBorderWidth, mRoundRectBorderWidth);
 
-        //内容属性
-        mContentText = typedArray.getString(R.styleable.LabelTextView_contentText);
-        mContextTextColor = typedArray.getColor(R.styleable.LabelTextView_contentTextColor, mContextTextColor);
-        mContextTextSize = typedArray.getDimension(R.styleable.LabelTextView_contentTextSize, mContextTextSize);
-
         typedArray.recycle();
 
         if(weightW <= 0 || weightH <= 0) {
@@ -128,9 +109,8 @@ public class RoundRectLabelView extends View {
         initLabelTextPaint();
         initTrianglePaint();
         initRoundRectPaint();
-        initContentPaint();
-        resetTextStatus();
     }
+
 
     private void initLabelTextPaint() {
         //初始化绘制标签文本的画笔
@@ -147,6 +127,7 @@ public class RoundRectLabelView extends View {
         //初始化绘制三角形背景的画笔
         mTrianglePaint= new Paint(Paint.ANTI_ALIAS_FLAG);
         mTrianglePaint.setColor(mLabelBgColor);
+        mTrianglePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
     }
 
     private void initRoundRectPaint() {
@@ -157,39 +138,18 @@ public class RoundRectLabelView extends View {
         mRoundRectPaint.setStrokeWidth(mRoundRectBorderWidth);
     }
 
-    private void initContentPaint() {
-        mContentPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mContentPaint.setColor(mContextTextColor);
-        mContentPaint.setTextAlign(Paint.Align.CENTER);
-        mContentPaint.setTextSize(mContextTextSize);
-    }
-
-    private void resetTextStatus() {
-        // 测量文字高度
-        Rect rectLabelText = new Rect();
-        mLabelTextPaint.getTextBounds(mLabelText, 0, mLabelText.length(), rectLabelText);
-        Rect rectContentText = new Rect();
-        mContentPaint.getTextBounds(mContentText, 0, mContentText.length(), rectContentText);
-        mContentHeight = rectContentText.height();
-        Log.d("msg", "resetTextStatus");
-    }
-
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         width = w;
         height = h;
-
         setWidth = width / weightW;
         setHeight = height / weightH;
         offsetX = calculationOffset(setWidth, setHeight);
     }
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //绘制三角形背景
         Path pathTriangle = new Path();
         pathTriangle.moveTo(0, double2Float(setHeight));
         pathTriangle.lineTo(0, 0);
@@ -200,10 +160,14 @@ public class RoundRectLabelView extends View {
         //绘制圆角矩形
         //圆角矩形向四周空出边长宽度距离，不然显示会不好看
         RectF r = new RectF();
-        r.left = dp2px(mRoundRectBorderWidth)/2;
+        /*r.left = dp2px(mRoundRectBorderWidth)/2;
         r.top = dp2px(mRoundRectBorderWidth)/2;
         r.right = width - dp2px(mRoundRectBorderWidth)/2;
-        r.bottom = height - dp2px(mRoundRectBorderWidth)/2;
+        r.bottom = height - dp2px(mRoundRectBorderWidth)/2;*/
+        r.left = 0;
+        r.top = 0;
+        r.right = width;
+        r.bottom = height;
         pathRountRect.addRoundRect(r, mRoundRectRadius, mRoundRectRadius, Path.Direction.CW);
         pathTriangle.op(pathRountRect,  Path.Op.INTERSECT);
         canvas.drawPath(pathTriangle, mTrianglePaint);
@@ -220,20 +184,8 @@ public class RoundRectLabelView extends View {
             canvas.drawTextOnPath(mLabelText, pathLabelLine, mLabelTextPaddingCenter, mLabelTextPaddingBottom, mLabelTextPaint);
         }
 
-        //画Content文字,往下移1/2高度居中
-        canvas.drawText(mContentText, width / 2, height / 2 + mContentHeight / 2, mContentPaint);
     }
 
-
-
-    @Override
-    public void setOnTouchListener(OnTouchListener l) {
-        super.setOnTouchListener(l);
-        mRoundRectBorderBg = Color.parseColor("#ff8800");
-        mContextTextColor = Color.parseColor("#ff8800");
-        Log.d("msg", "setOnTouchListener");
-        postInvalidate();
-    }
 
     /**
      *
@@ -284,99 +236,4 @@ public class RoundRectLabelView extends View {
         return spValue * scale;
     }
 
-    public int getmLabelTextColor() {
-        return mLabelTextColor;
-    }
-
-    public void setmLabelTextColor(int mLabelTextColor) {
-        this.mLabelTextColor = mLabelTextColor;
-    }
-
-    public float getmLabelTextSize() {
-        return mLabelTextSize;
-    }
-
-    public void setmLabelTextSize(float mLabelTextSize) {
-        this.mLabelTextSize = mLabelTextSize;
-    }
-
-    public String getmLabelText() {
-        return mLabelText;
-    }
-
-    public void setmLabelText(String mLabelText) {
-        this.mLabelText = mLabelText;
-    }
-
-    public int getmLabelBgColor() {
-        return mLabelBgColor;
-    }
-
-    public void setmLabelBgColor(int mLabelBgColor) {
-        this.mLabelBgColor = mLabelBgColor;
-    }
-
-    public int getmRoundRectBg() {
-        return mRoundRectBg;
-    }
-
-    public void setmRoundRectBg(int mRoundRectBg) {
-        this.mRoundRectBg = mRoundRectBg;
-    }
-
-    public int getmRoundRectBorderBg() {
-        return mRoundRectBorderBg;
-    }
-
-    public void setmRoundRectBorderBg(int mRoundRectBorderBg) {
-        this.mRoundRectBorderBg = mRoundRectBorderBg;
-    }
-
-    public float getmRoundRectBorderWidth() {
-        return mRoundRectBorderWidth;
-    }
-
-    public void setmRoundRectBorderWidth(float mRoundRectBorderWidth) {
-        this.mRoundRectBorderWidth = mRoundRectBorderWidth;
-    }
-
-    public float getmRoundRectRadius() {
-        return mRoundRectRadius;
-    }
-
-    public void setmRoundRectRadius(float mRoundRectRadius) {
-        this.mRoundRectRadius = mRoundRectRadius;
-    }
-
-    public int getmContextTextColor() {
-        return mContextTextColor;
-    }
-
-    public void setmContextTextColor(int mContextTextColor) {
-        this.mContextTextColor = mContextTextColor;
-    }
-
-    public float getmContextTextSize() {
-        return mContextTextSize;
-    }
-
-    public void setmContextTextSize(float mContextTextSize) {
-        this.mContextTextSize = mContextTextSize;
-    }
-
-    public String getmContentText() {
-        return mContentText;
-    }
-
-    public void setmContentText(String mContentText) {
-        this.mContentText = mContentText;
-    }
-
-    public int getmContentHeight() {
-        return mContentHeight;
-    }
-
-    public void setmContentHeight(int mContentHeight) {
-        this.mContentHeight = mContentHeight;
-    }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.foxmail.aroundme.library.RoundRectLabelView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/round"
+    android:layout_width="match_parent"
+    android:layout_height="33dp"
+    app:contentText="Content"
+    app:contentTextColor="#000000"
+    app:contentTextSize="16sp"
+    app:labelBgColor="#FF8800"
+    app:labelHeightWeight="1"
+    app:labelText="HOT"
+    app:labelTextColor="@android:color/white"
+    app:labelTextPaddingBottom="-1dp"
+    app:labelTextPaddingCenter="1.5dp"
+    app:labelTextSize="8sp"
+    app:labelWidthWeight="4.5"
+    app:roundRectBg="#ffffff"
+    app:roundRectBorderBg="#b2b2b2"
+    app:roundRectBorderWidth="0.5dp"
+    app:roundRectRadius="18dp">
+
+</com.foxmail.aroundme.library.RoundRectLabelView>

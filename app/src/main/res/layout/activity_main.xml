@@ -5,58 +5,45 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context="com.foxmail.aroundme.labeltextview.MainActivity">
 
-    <com.foxmail.aroundme.library.RoundRectLabelView
+    <!--<com.foxmail.aroundme.library.RoundRectLabelView
+        android:id="@+id/a1"
         android:layout_width="wrap_content"
         android:layout_height="33dp"
         android:layout_margin="3dp"
-        android:layout_weight="1"
-        app:labelBgColor="#FF8800"
+        app:labelBgColor="#ff8800"
         app:labelText="HOT"
         app:labelTextColor="@android:color/white"
         app:labelTextSize="8sp"
         app:labelWidthWeight="4.5"
+        app:contentTextColor="#ff8800"
+        app:contentTextSize="16sp"
         app:labelHeightWeight="1"
         app:labelTextPaddingBottom="-1dp"
         app:roundRectBorderWidth="0.5dp"
-        app:roundRectBg="@android:color/white"
+        app:roundRectBg="#f6f6f6"
         app:roundRectRadius="18dp"
         app:contentText="Content"
         app:labelTextPaddingCenter="1.5dp"
-        app:roundRectBorderBg="#b2b2b2"/>
+        app:roundRectBorderBg="#b2b2b2"/>-->
 
-    <com.foxmail.aroundme.library.RoundRectLabelView
-        android:layout_width="wrap_content"
+    <com.foxmail.aroundme.library.LabelTextView
+        android:layout_width="match_parent"
         android:layout_height="33dp"
         android:layout_margin="3dp"
-        android:layout_weight="1"
+        android:background="@drawable/pop_channel_item_bg"
+        android:textColor="@drawable/pop_channel_item_bg_text_selector"
+        android:gravity="center"
+        android:text="A"
         app:labelBgColor="#ff8800"
         app:labelText="NEW"
         app:labelTextColor="@android:color/white"
         app:labelTextSize="10sp"
+        app:labelTextPaddingCenter="-3dp"
         app:labelWidthWeight="4"
         app:labelHeightWeight="1"
-        app:roundRectBg="@android:color/holo_blue_light"
-        app:roundRectRadius="18dp"
-        app:contentText="A"/>
-
-    <com.foxmail.aroundme.library.RoundRectLabelView
-        android:layout_width="wrap_content"
-        android:layout_height="33dp"
-        android:layout_margin="3dp"
-        android:layout_weight="1"
-        app:labelBgColor="@android:color/holo_blue_light"
-        app:labelText="HOT"
-        app:labelTextColor="@android:color/white"
-        app:labelTextSize="8sp"
-        app:labelWidthWeight="3"
-        app:labelHeightWeight="1"
-        app:roundRectBg="@android:color/holo_blue_light"
-        app:roundRectRadius="18dp"
-        app:contentText="B"
-        app:contentTextColor="@android:color/holo_blue_light"
         />
 
 </LinearLayout>
