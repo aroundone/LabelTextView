@@ -10,13 +10,8 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.support.annotation.IntDef;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /**
  * Created by gzl on 1/16/17.
@@ -42,7 +37,7 @@ public class RoundRectLabelView extends View {
     //文字和中线的间距
     private float mLabelTextPaddingCenter = 0;
     //背景颜色
-    private int mLabelBgColor = Color.BLUE;
+    private int mLabelBgColor = Color.parseColor("#ff8800");
     //覆盖图层画笔
     private Paint mTrianglePaint;
 
@@ -54,7 +49,7 @@ public class RoundRectLabelView extends View {
     //背景颜色
     private int mRoundRectBg = Color.WHITE;
     //边长背景颜色
-    private int mRoundRectBorderBg = Color.BLACK;
+    private int mRoundRectBorderBg = Color.parseColor("#b2b2b2");
     //边长宽度
     private float mRoundRectBorderWidth = dp2px(1);
     //圆角半径
