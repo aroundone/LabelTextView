@@ -13,39 +13,50 @@
         android:layout_height="33dp"
         android:layout_margin="3dp"
         android:layout_weight="1"
-        app:labelBgColor="@color/colorPrimaryDark"
-        app:labelText="哈哈"
-        app:labelTextColor="@android:color/holo_blue_light"
-        app:labelTextSize="9sp"
-        app:roundRectBg="@android:color/holo_blue_light"
-        app:roundRectRadius="15dp"/>
+        app:labelBgColor="#FF8800"
+        app:labelText="HOT"
+        app:labelTextColor="@android:color/white"
+        app:labelTextSize="8sp"
+        app:labelWidthWeight="4.5"
+        app:labelHeightWeight="1"
+        app:labelTextPaddingBottom="-1dp"
+        app:roundRectBorderWidth="0.5dp"
+        app:roundRectBg="@android:color/white"
+        app:roundRectRadius="18dp"
+        app:contentText="Content"
+        app:labelTextPaddingCenter="1.5dp"
+        app:roundRectBorderBg="#b2b2b2"/>
 
     <com.foxmail.aroundme.library.RoundRectLabelView
         android:layout_width="wrap_content"
         android:layout_height="33dp"
         android:layout_margin="3dp"
         android:layout_weight="1"
-        app:labelBgColor="@color/colorPrimaryDark"
-        app:labelText="呵呵"
-        app:labelTextColor="@android:color/holo_green_light"
-        app:labelTextSize="11sp"
-        app:labelWidthWeight="1"
+        app:labelBgColor="#ff8800"
+        app:labelText="NEW"
+        app:labelTextColor="@android:color/white"
+        app:labelTextSize="10sp"
+        app:labelWidthWeight="4"
         app:labelHeightWeight="1"
         app:roundRectBg="@android:color/holo_blue_light"
-        app:roundRectRadius="20dp"/>
+        app:roundRectRadius="18dp"
+        app:contentText="A"/>
 
     <com.foxmail.aroundme.library.RoundRectLabelView
         android:layout_width="wrap_content"
         android:layout_height="33dp"
         android:layout_margin="3dp"
         android:layout_weight="1"
-        app:labelBgColor="@color/colorPrimaryDark"
-        app:labelText="嘿嘿"
-        app:labelTextColor="@android:color/holo_orange_dark"
-        app:labelTextSize="13sp"
+        app:labelBgColor="@android:color/holo_blue_light"
+        app:labelText="HOT"
+        app:labelTextColor="@android:color/white"
+        app:labelTextSize="8sp"
         app:labelWidthWeight="3"
-        app:labelHeightWeight="3"
+        app:labelHeightWeight="1"
         app:roundRectBg="@android:color/holo_blue_light"
-        app:roundRectRadius="10dp"/>
+        app:roundRectRadius="18dp"
+        app:contentText="B"
+        app:contentTextColor="@android:color/holo_blue_light"
+        />
 
 </LinearLayout>

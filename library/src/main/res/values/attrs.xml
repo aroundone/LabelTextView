@@ -12,17 +12,31 @@
         <!--标签字体大小-->
         <attr name="labelTextSize" format="dimension"/>
         <!--标签宽度权重,起点为左上角-->
-        <attr name="labelWidthWeight" format="integer"/>
+        <attr name="labelWidthWeight" format="float"/>
         <!--标签高度权重,起点为左上角-->
-        <attr name="labelHeightWeight" format="integer"/>
+        <attr name="labelHeightWeight" format="float"/>
+        <!--文字和底部间距-->
+        <attr name="labelTextPaddingBottom" format="dimension"/>
+        <!--文字和中点的间距-->
+        <attr name="labelTextPaddingCenter" format="dimension"/>
+
 
         <!--圆角矩形-->
         <!--矩形内部颜色-->
         <attr name="roundRectBg" format="color"/>
         <!--矩形边界颜色-->
         <attr name="roundRectBorderBg" format="color"/>
+        <!--矩形边界宽度-->
+        <attr name="roundRectBorderWidth" format="dimension"/>
         <!--矩形四边半径-->
         <attr name="roundRectRadius" format="dimension"/>
+
+        <!--内容属性-->
+        <attr name="contentText" format="string"/>
+        <!--内容字体颜色-->
+        <attr name="contentTextColor" format="color"/>
+        <!--内容字体大小-->
+        <attr name="contentTextSize" format="dimension"/>
 
     </declare-styleable>
 
