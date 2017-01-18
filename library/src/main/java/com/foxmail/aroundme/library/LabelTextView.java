@@ -181,7 +181,10 @@ public class LabelTextView extends TextView{
         r.bottom = height - dp2px(mRoundRectBorderWidth)/2;
         pathRountRect.addRoundRect(r, mRoundRectRadius, mRoundRectRadius, Path.Direction.CW);
 
-
+        /*
+         * 区分：当API>19时采取Path.op方式
+         *      当API<19采取切割canvas方式
+         */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             pathTriangle.op(pathRountRect, Path.Op.INTERSECT);
             canvas.drawPath(pathRountRect, mRoundRectPaint);
@@ -192,7 +195,6 @@ public class LabelTextView extends TextView{
             canvas.drawPath(pathTriangle, mTrianglePaint);
             canvas.drawPath(pathRountRect, mRoundRectPaint);
             canvas.restore();
-
         }
 
         //画Label文字
