@@ -189,19 +189,17 @@ public class LabelTextView extends TextView{
     // TODO: 1/18/17 算法还需要优化 
     /**
      *
-     *
-     * 公式为：if(w > h) {
-     *     (w^2 - h^2)/2 * √(w^2 + h^2)
-     * } else if(w < h) {
-     *     (h^2 - w^2)/2 * √(w^2 + h^2)
-     * }
      * ps: w = width   h = height
      *
+     * 公式为：if(w > h) {
+     *     (w^2 - h^2)/[2 * √(w^2 + h^2)]
+     * } else if(w < h) {
+     *     (h^2 - w^2)/[2 * √(w^2 + h^2)]
+     * }
      *
      *
      * 计算LabelText相对偏移量
      * 相等直接返回0
-     * 默认width > height，如果height > width的话内部交换
      * @param width width
      * @param height height
      * @return 计算后的值
@@ -210,11 +208,7 @@ public class LabelTextView extends TextView{
         if (width == height) {
             return 0;
         }
-        if (width < height) {
-            double temp = width;
-            width = height;
-            height = temp;
-        }
+
         double molecule = Math.pow(width, 2) - Math.pow(height, 2);
 
         double denominator = 2 * Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
@@ -236,4 +230,27 @@ public class LabelTextView extends TextView{
         return spValue * scale;
     }
 
+    public String getmLabelText() {
+        return mLabelText;
+    }
+
+    public void setmLabelText(String mLabelText) {
+        this.mLabelText = mLabelText;
+    }
+
+    public int getmLabelTextColor() {
+        return mLabelTextColor;
+    }
+
+    public void setmLabelTextColor(int mLabelTextColor) {
+        this.mLabelTextColor = mLabelTextColor;
+    }
+
+    public float getmLabelTextSize() {
+        return mLabelTextSize;
+    }
+
+    public void setmLabelTextSize(float mLabelTextSize) {
+        this.mLabelTextSize = mLabelTextSize;
+    }
 }
