@@ -1,6 +1,7 @@
 package com.foxmail.aroundme.labeltextview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,8 @@ public class GridViewChannelAdapter extends BaseAdapter {
         view = LayoutInflater.from(context).inflate(R.layout.activity_main, null);
 
 		LabelTextView labelTextView = (LabelTextView) view.findViewById(R.id.labelTextView);
+		labelTextView.setmLabelText("NEW");
+		labelTextView.setmLabelTextColor(Color.BLUE);
 
         //RoundRectLabelView roundRectLabelView = (RoundRectLabelView) view.findViewById(R.id.pop_item_channel_text);
 

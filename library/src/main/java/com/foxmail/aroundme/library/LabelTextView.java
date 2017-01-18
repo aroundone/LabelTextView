@@ -10,8 +10,11 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.graphics.Region;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -20,6 +23,11 @@ import android.widget.TextView;
  */
 
 public class LabelTextView extends TextView{
+
+    /**
+     * 默认不显示，只有使用了setXXX的方法才显示
+     */
+    private boolean isShow = false;
 
     /**
      * 标签文字
@@ -80,7 +88,7 @@ public class LabelTextView extends TextView{
     public LabelTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttr(context, attrs);
-
+        this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
     private void initAttr(Context context, AttributeSet attrs) {
@@ -129,7 +137,6 @@ public class LabelTextView extends TextView{
         //初始化绘制三角形背景的画笔
         mTrianglePaint= new Paint(Paint.ANTI_ALIAS_FLAG);
         mTrianglePaint.setColor(mLabelBgColor);
-        mTrianglePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
     }
 
     private void initRoundRectPaint() {
@@ -149,10 +156,15 @@ public class LabelTextView extends TextView{
         setHeight = height / weightH;
         offsetX = calculationOffset(setWidth, setHeight);
     }
-    @TargetApi(19)
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //不展示直接返回
+        if(!isShow) {
+            return;
+        }
+
         Path pathTriangle = new Path();
         pathTriangle.moveTo(0, double2Float(setHeight));
         pathTriangle.lineTo(0, 0);
@@ -168,9 +180,20 @@ public class LabelTextView extends TextView{
         r.right = width - dp2px(mRoundRectBorderWidth)/2;
         r.bottom = height - dp2px(mRoundRectBorderWidth)/2;
         pathRountRect.addRoundRect(r, mRoundRectRadius, mRoundRectRadius, Path.Direction.CW);
-        pathTriangle.op(pathRountRect,  Path.Op.INTERSECT);
-        canvas.drawPath(pathTriangle, mTrianglePaint);
-        canvas.drawPath(pathRountRect, mRoundRectPaint);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            pathTriangle.op(pathRountRect, Path.Op.INTERSECT);
+            canvas.drawPath(pathRountRect, mRoundRectPaint);
+            canvas.drawPath(pathTriangle, mTrianglePaint);
+        }else {
+            canvas.save();
+            canvas.clipPath(pathRountRect, Region.Op.INTERSECT);
+            canvas.drawPath(pathTriangle, mTrianglePaint);
+            canvas.drawPath(pathRountRect, mRoundRectPaint);
+            canvas.restore();
+
+        }
 
         //画Label文字
         Path pathLabelLine = new Path();
@@ -230,27 +253,20 @@ public class LabelTextView extends TextView{
         return spValue * scale;
     }
 
-    public String getmLabelText() {
-        return mLabelText;
-    }
 
     public void setmLabelText(String mLabelText) {
+        isShow = true;
         this.mLabelText = mLabelText;
     }
 
-    public int getmLabelTextColor() {
-        return mLabelTextColor;
-    }
 
     public void setmLabelTextColor(int mLabelTextColor) {
+        isShow = true;
         this.mLabelTextColor = mLabelTextColor;
     }
 
-    public float getmLabelTextSize() {
-        return mLabelTextSize;
-    }
-
     public void setmLabelTextSize(float mLabelTextSize) {
+        isShow = true;
         this.mLabelTextSize = mLabelTextSize;
     }
 }
