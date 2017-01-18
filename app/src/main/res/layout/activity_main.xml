@@ -1,49 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.foxmail.aroundme.labeltextview.MainActivity">
-
-    <!--<com.foxmail.aroundme.library.RoundRectLabelView
-        android:id="@+id/a1"
-        android:layout_width="wrap_content"
-        android:layout_height="33dp"
-        android:layout_margin="3dp"
-        app:labelBgColor="#ff8800"
-        app:labelText="HOT"
-        app:labelTextColor="@android:color/white"
-        app:labelTextSize="8sp"
-        app:labelWidthWeight="4.5"
-        app:contentTextColor="#ff8800"
-        app:contentTextSize="16sp"
-        app:labelHeightWeight="1"
-        app:labelTextPaddingBottom="-1dp"
-        app:roundRectBorderWidth="0.5dp"
-        app:roundRectBg="#f6f6f6"
-        app:roundRectRadius="18dp"
-        app:contentText="Content"
-        app:labelTextPaddingCenter="1.5dp"
-        app:roundRectBorderBg="#b2b2b2"/>-->
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:background="@drawable/pop_channel_item_bg">
 
     <com.foxmail.aroundme.library.LabelTextView
+        android:id="@+id/labelTextView"
         android:layout_width="match_parent"
         android:layout_height="33dp"
-        android:layout_margin="3dp"
-        android:background="@drawable/pop_channel_item_bg"
         android:textColor="@drawable/pop_channel_item_bg_text_selector"
         android:gravity="center"
         android:text="A"
         app:labelBgColor="#ff8800"
         app:labelText="NEW"
         app:labelTextColor="@android:color/white"
-        app:labelTextSize="10sp"
-        app:labelTextPaddingCenter="-3dp"
+        app:labelTextSize="9sp"
+        app:labelTextPaddingCenter="1dp"
         app:labelWidthWeight="4"
         app:labelHeightWeight="1"
         />
-
-</LinearLayout>
+</FrameLayout>

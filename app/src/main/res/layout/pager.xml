@@ -7,5 +7,7 @@
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:numColumns="3"
+        android:horizontalSpacing="8dp"
+        android:verticalSpacing="11dp"
         android:layout_height="match_parent"/>
 </LinearLayout>

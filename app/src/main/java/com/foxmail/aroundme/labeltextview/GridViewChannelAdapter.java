@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.foxmail.aroundme.library.LabelTextView;
 import com.foxmail.aroundme.library.RoundRectLabelView;
 
 import java.util.List;
@@ -45,13 +46,13 @@ public class GridViewChannelAdapter extends BaseAdapter {
 	@Override
 	public View getView(int i, View view, ViewGroup viewGroup) {
 
-        view = LayoutInflater.from(context).inflate(R.layout.pop_item_channel2, null);
+        view = LayoutInflater.from(context).inflate(R.layout.activity_main, null);
 
-        RoundRectLabelView roundRectLabelView = (RoundRectLabelView) view.findViewById(R.id.round);
+		LabelTextView labelTextView = (LabelTextView) view.findViewById(R.id.labelTextView);
 
         //RoundRectLabelView roundRectLabelView = (RoundRectLabelView) view.findViewById(R.id.pop_item_channel_text);
 
-        roundRectLabelView.setmContentText(list.get(i)+ "");
+		//labelTextView.setmContentText(list.get(i)+ "");
 
 		return view;
 	}

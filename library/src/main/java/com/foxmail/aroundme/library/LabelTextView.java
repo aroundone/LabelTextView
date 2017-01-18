@@ -1,5 +1,6 @@
 package com.foxmail.aroundme.library;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 /**
  * Created by gzl on 1/17/17.
+ *
  */
 
 public class LabelTextView extends TextView{
@@ -47,7 +49,7 @@ public class LabelTextView extends TextView{
     //背景颜色
     private int mRoundRectBg = Color.WHITE;
     //边长背景颜色
-    private int mRoundRectBorderBg = Color.parseColor("#b2b2b2");
+    private int mRoundRectBorderBg = Color.parseColor("#00000000");
     //边长宽度
     private float mRoundRectBorderWidth = dp2px(1);
     //圆角半径
@@ -147,6 +149,7 @@ public class LabelTextView extends TextView{
         setHeight = height / weightH;
         offsetX = calculationOffset(setWidth, setHeight);
     }
+    @TargetApi(19)
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -160,14 +163,10 @@ public class LabelTextView extends TextView{
         //绘制圆角矩形
         //圆角矩形向四周空出边长宽度距离，不然显示会不好看
         RectF r = new RectF();
-        /*r.left = dp2px(mRoundRectBorderWidth)/2;
+        r.left = dp2px(mRoundRectBorderWidth)/2;
         r.top = dp2px(mRoundRectBorderWidth)/2;
         r.right = width - dp2px(mRoundRectBorderWidth)/2;
-        r.bottom = height - dp2px(mRoundRectBorderWidth)/2;*/
-        r.left = 0;
-        r.top = 0;
-        r.right = width;
-        r.bottom = height;
+        r.bottom = height - dp2px(mRoundRectBorderWidth)/2;
         pathRountRect.addRoundRect(r, mRoundRectRadius, mRoundRectRadius, Path.Direction.CW);
         pathTriangle.op(pathRountRect,  Path.Op.INTERSECT);
         canvas.drawPath(pathTriangle, mTrianglePaint);
@@ -187,6 +186,7 @@ public class LabelTextView extends TextView{
     }
 
 
+    // TODO: 1/18/17 算法还需要优化 
     /**
      *
      *
