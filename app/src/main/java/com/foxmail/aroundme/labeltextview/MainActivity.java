@@ -14,15 +14,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pager);
 
-        /*LabelTextView labelTextView = (LabelTextView)findViewById(R.id.labelTextView);
-        labelTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
-
         List<String> list = new ArrayList<>();
         list.add("Hot");
         list.add("Hot");
