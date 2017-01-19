@@ -1,14 +1,8 @@
 package com.foxmail.aroundme.labeltextview;
 
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.GridView;
-import android.widget.Toast;
-
-import com.foxmail.aroundme.library.LabelTextView;
-import com.foxmail.aroundme.library.RoundRectLabelView;
 
 import java.util.ArrayList;
 import java.util.List;
