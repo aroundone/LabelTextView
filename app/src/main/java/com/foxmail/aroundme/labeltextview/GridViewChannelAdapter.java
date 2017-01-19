@@ -15,12 +15,7 @@ import com.foxmail.aroundme.library.RoundRectLabelView;
 import java.util.List;
 
 
-/**
- * Created by Administrator on 2016/11/14.
- */
-
 public class GridViewChannelAdapter extends BaseAdapter {
-	private static final String ENTER_CHANNEL = "10004";
 	private Context context;
 	private List<String> list;
 
@@ -50,12 +45,8 @@ public class GridViewChannelAdapter extends BaseAdapter {
         view = LayoutInflater.from(context).inflate(R.layout.activity_main, null);
 
 		LabelTextView labelTextView = (LabelTextView) view.findViewById(R.id.labelTextView);
-		labelTextView.setmLabelText("NEW");
-		labelTextView.setmLabelTextColor(Color.BLUE);
-
-        //RoundRectLabelView roundRectLabelView = (RoundRectLabelView) view.findViewById(R.id.pop_item_channel_text);
-
-		//labelTextView.setmContentText(list.get(i)+ "");
+		labelTextView.setLabelText("NEW").setLabelTextColor(Color.WHITE)
+				.setLabelBgColor(Color.parseColor("#ff8800")).update();
 
 		return view;
 	}
