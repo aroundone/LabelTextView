@@ -42,8 +42,15 @@ public class GridViewChannelAdapter extends BaseAdapter {
         view = LayoutInflater.from(context).inflate(R.layout.pager, null);
 
 		LabelTextView labelTextView = (LabelTextView) view.findViewById(R.id.labelTextView);
-		labelTextView.setLabelText("NEW").setLabelTextColor(Color.WHITE)
-				.setLabelBgColor(Color.parseColor("#ff8800")).update();
+
+		if(i % 2 == 0) {
+			labelTextView.setLabelText("NEW").setLabelTextColor(Color.WHITE)
+					.setLabelBgColor(Color.parseColor("#ff8800")).update();
+		}else {
+			labelTextView.setLabelText("HOT").setLabelTextColor(Color.WHITE)
+					.setLabelBgColor(Color.RED).update();
+		}
+
 
 		return view;
 	}
