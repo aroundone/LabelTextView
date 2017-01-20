@@ -84,7 +84,7 @@ labelTextPaddingBottom表示标签文字距离底边的高度偏移量
 
 显示效果如下：
 
-<img src="http://ojwjax1r0.bkt.clouddn.com/Screenshot_2017-01-20-10-51-32.png" width=300 height=600 />
+<img src="http://ojwjax1r0.bkt.clouddn.com/Screenshot_2017-01-20-10-51-32.png" width=300 height=540 />
 
 ## 版本更新
 
