@@ -25,8 +25,6 @@
         <attr name="roundRectBorderWidth" format="dimension"/>
         <!--矩形四边半径-->
         <attr name="roundRectRadius" format="dimension"/>
-
-
     </declare-styleable>
 
 </resources>
