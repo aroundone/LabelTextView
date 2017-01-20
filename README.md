@@ -5,16 +5,6 @@
 
 标签是由一个圆角矩形和一个三角形绘制而成，使用了画布的裁剪
 
-具体思路以及实现可以参考我的博客
-
-http://blog.csdn.net/aroundme/article/details/54630352
-
-## 注意
-
-labelHeightWeight和labelWidthWeight两个属性都有默认值，
-如果使用这个属性的话一定要大于0，不然会抛出异常
-
-## 使用
 考虑到扩展性
 推荐您在android:background中设置drawable设置selector。
 
@@ -37,6 +27,20 @@ labelTextPaddingCenter表示标签文字距离底边中线的偏移量
 
 labelTextPaddingBottom表示标签文字距离底边的高度偏移量
 
+具体思路以及实现可以参考我的博客
+
+http://blog.csdn.net/aroundme/article/details/54630352
+
+## 注意
+
+labelHeightWeight和labelWidthWeight两个属性都有默认值，
+如果使用这个属性的话一定要大于0，不然会抛出异常
+
+考虑到在大部分场合下显示的几率很小，所以默认是不显示标签。
+如果要显示的话，看使用。
+
+## 使用
+
 ```
 <com.foxmail.aroundme.library.LabelTextView
         android:id="@+id/labelTextView"
@@ -56,6 +60,19 @@ labelTextPaddingBottom表示标签文字距离底边的高度偏移量
         app:roundRectRadius="16dp" />
 
 ```
+
+显示：
+
+```
+LabelTextView labelTextView = (LabelTextView) view.findViewById(R.id.labelTextView);
+
+labelTextView.setLabelBgColor(context.getResources()
+        .getColor(R.color.brand_color))
+        .setLabelText("NEW")
+        .update();
+
+```
+
 
 ## 属性介绍
 ```
