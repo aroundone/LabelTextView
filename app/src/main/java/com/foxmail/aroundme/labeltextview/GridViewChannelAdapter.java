@@ -39,7 +39,7 @@ public class GridViewChannelAdapter extends BaseAdapter {
 	@Override
 	public View getView(int i, View view, ViewGroup viewGroup) {
 
-        view = LayoutInflater.from(context).inflate(R.layout.activity_main, null);
+        view = LayoutInflater.from(context).inflate(R.layout.pager, null);
 
 		LabelTextView labelTextView = (LabelTextView) view.findViewById(R.id.labelTextView);
 		labelTextView.setLabelText("NEW").setLabelTextColor(Color.WHITE)
