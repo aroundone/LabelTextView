@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_gravity="center"
-    android:background="@drawable/pop_channel_item_bg">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.foxmail.aroundme.library.LabelTextView
-        android:id="@+id/labelTextView"
+    <GridView
+        android:id="@+id/grid"
         android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:textColor="@drawable/pop_channel_item_bg_text_selector"
-        android:gravity="center"
-        android:text="A"
-        app:labelBgColor="#ff8800"
-        app:labelText="NEW"
-        app:labelTextColor="@android:color/white"
-        app:labelTextSize="9sp"
-        app:labelTextPaddingCenter="1dp"
-        app:labelWidthWeight="4"
-        app:labelHeightWeight="1"
-        />
-</FrameLayout>
+        android:layout_height="match_parent"
+        android:background="#f6f6f6"
+        android:horizontalSpacing="8dp"
+        android:numColumns="3"
+        android:paddingBottom="16dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingTop="16dp"
+        android:verticalSpacing="11dp" />
+</LinearLayout>

@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/pop_channel_item_bg">
 
-    <GridView
-        android:id="@+id/grid"
+    <com.foxmail.aroundme.library.LabelTextView
+        android:id="@+id/labelTextView"
         android:layout_width="match_parent"
-        android:numColumns="3"
-        android:horizontalSpacing="8dp"
-        android:verticalSpacing="11dp"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+        android:layout_height="33dp"
+        android:gravity="center"
+        android:text="ABC"
+        android:textColor="@drawable/pop_channel_item_bg_text_selector"
+        android:textSize="14sp"
+        app:labelHeightWeight="1"
+        app:labelTextColor="@android:color/black"
+        app:labelTextPaddingCenter="1dp"
+        app:labelBgColor="#ff8800"
+        app:labelTextSize="9sp"
+        app:labelWidthWeight="4"
+        app:roundRectBorderWidth="1dp"
+        app:roundRectRadius="16dp" />
+</FrameLayout>
