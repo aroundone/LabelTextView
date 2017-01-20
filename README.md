@@ -9,7 +9,10 @@
 
 http://blog.csdn.net/aroundme/article/details/54630352
 
+## 注意
 
+labelHeightWeight和labelWidthWeight两个属性都有默认值，
+如果使用这个属性的话一定要大于0，不然会抛出异常
 
 ## 使用
 考虑到扩展性
