@@ -12,13 +12,15 @@ import android.graphics.Region;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 
 /**
  * Created by gzl on 1/17/17.
- *
+ * <p>
+ * 自定义标签View，继承于TextView
  */
 
 public class LabelTextView extends TextView {
@@ -40,11 +42,11 @@ public class LabelTextView extends TextView {
     //文字内容
     private String mLabelText = "Default";
     //文字距离底部偏移量
-    private float mLabelTextPaddingBottom = -dp2px( 2);
+    private float mLabelTextPaddingBottom = -dp2px(2);
     //文字和中线的间距
     private float mLabelTextPaddingCenter = Float.MAX_VALUE;
     //背景颜色
-    private int mLabelBgColor = Color.BLUE;
+    private int mLabelBgColor = Color.YELLOW;
     //覆盖图层画笔
     private Paint mTrianglePaint;
     private Path mPathTriangle;
@@ -160,7 +162,7 @@ public class LabelTextView extends TextView {
         mRectFRoundRect.right = w - dp2px(mRoundRectBorderWidth) / scale;
         mRectFRoundRect.bottom = h - dp2px(mRoundRectBorderWidth) / scale;
 
-        paintFlagsDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
+        paintFlagsDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
     }
 
     @Override
@@ -177,6 +179,7 @@ public class LabelTextView extends TextView {
         mLabelTextPaint.setColor(mLabelTextColor);
         mLabelTextPaint.setTextSize(mLabelTextSize);
 
+        Log.d("msg", "mLabelBgColor = " + mLabelBgColor);
 
         mPathTriangle.moveTo(0, (float) setHeight);
         mPathTriangle.lineTo(0, 0);
@@ -187,21 +190,12 @@ public class LabelTextView extends TextView {
         //圆角矩形向四周空出边长宽度距离，不然显示会不好看
         mPathRoundRect.addRoundRect(mRectFRoundRect, mRoundRectRadius, mRoundRectRadius, Path.Direction.CW);
 
-        /*
-         * 区分：当API>19时采取Path.op方式
-         *      当API<19采取切割canvas方式
-         */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mPathTriangle.op(mPathRoundRect, Path.Op.INTERSECT);
-            canvas.drawPath(mPathRoundRect, mRoundRectPaint);
-            canvas.drawPath(mPathTriangle, mTrianglePaint);
-        } else {
-            canvas.save();
-            canvas.clipPath(mPathRoundRect, Region.Op.INTERSECT);
-            canvas.drawPath(mPathTriangle, mTrianglePaint);
-            canvas.drawPath(mPathRoundRect, mRoundRectPaint);
-            canvas.restore();
-        }
+        canvas.save();
+        canvas.clipPath(mPathRoundRect, Region.Op.INTERSECT);
+        canvas.drawPath(mPathTriangle, mTrianglePaint);
+        canvas.drawPath(mPathRoundRect, mRoundRectPaint);
+        canvas.restore();
+
 
         //画Label文字
 
