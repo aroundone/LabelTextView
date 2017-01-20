@@ -86,4 +86,12 @@ labelTextPaddingBottom表示标签文字距离底边的高度偏移量
 
 <img src="http://ojwjax1r0.bkt.clouddn.com/Screenshot_2017-01-20-10-51-32.png" width=300 height=600 />
 
+## 版本更新
 
+* 1.1
+
+修改裁剪方式的实现
+
+原来是用版本区分，大于19使用Path.op，小于19使用canvas.clipPath
+
+现在统一使用canvas.clipPath方式实现
