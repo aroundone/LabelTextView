@@ -7,10 +7,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -47,15 +50,13 @@ public class LabelTextView extends TextView {
     private float mLabelTextPaddingCenter = Float.MAX_VALUE;
     //背景颜色
     private int mLabelBgColor = Color.YELLOW;
-    //覆盖图层画笔
-    private Paint mTrianglePaint;
+    //画三角形和圆角矩形画笔
+    private Paint mPaint;
     private Path mPathTriangle;
 
     /**
      * 圆角矩形
      */
-    //画笔
-    private Paint mRoundRectPaint;
     //边长背景颜色
     private int mRoundRectBorderBg = Color.parseColor("#00000000");
     //边长宽度
@@ -82,6 +83,7 @@ public class LabelTextView extends TextView {
     private float scale = getContext().getResources().getDisplayMetrics().density;
     //抗锯齿
     private PaintFlagsDrawFilter paintFlagsDrawFilter;
+    private PorterDuffXfermode xfermode;
 
     public LabelTextView(Context context) {
         this(context, null);
@@ -119,32 +121,26 @@ public class LabelTextView extends TextView {
         }
 
         initLabelTextPaint();
-        initTrianglePaint();
-        initRoundRectPaint();
+        initPaint();
+        initRoundRect();
     }
 
 
     private void initLabelTextPaint() {
         //初始化绘制标签文本的画笔
         mLabelTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
         mLabelTextPaint.setTextAlign(Paint.Align.CENTER);
         mLabelTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mPathLabelLine = new Path();
     }
 
-    private void initTrianglePaint() {
+    private void initPaint() {
         //初始化绘制三角形背景的画笔
-        mTrianglePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPathTriangle = new Path();
     }
 
-    private void initRoundRectPaint() {
-        //绘制圆角矩形画笔
-        mRoundRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mRoundRectPaint.setColor(mRoundRectBorderBg);
-        mRoundRectPaint.setStyle(Paint.Style.STROKE);
-        mRoundRectPaint.setStrokeWidth(mRoundRectBorderWidth);
+    private void initRoundRect() {
         mPathRoundRect = new Path();
     }
 
@@ -163,6 +159,7 @@ public class LabelTextView extends TextView {
         mRectFRoundRect.bottom = h - dp2px(mRoundRectBorderWidth) / scale;
 
         paintFlagsDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+        xfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP);
     }
 
     @Override
@@ -172,33 +169,40 @@ public class LabelTextView extends TextView {
         if (!isShow) {
             return;
         }
-
         canvas.setDrawFilter(paintFlagsDrawFilter);
 
-        mTrianglePaint.setColor(mLabelBgColor);
-        mLabelTextPaint.setColor(mLabelTextColor);
-        mLabelTextPaint.setTextSize(mLabelTextSize);
+        mPaint.setColor(Color.TRANSPARENT);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(mRoundRectBorderWidth);
+        //圆角矩形向四周空出边长宽度距离
+        mPathRoundRect.addRoundRect(mRectFRoundRect, mRoundRectRadius, mRoundRectRadius, Path.Direction.CW);
+        canvas.drawPath(mPathRoundRect, mPaint);
+        //混合模式
+        mPaint.setXfermode(xfermode);
+        //三角形
+        drawTrianglePath();
+        mPaint.setColor(mLabelBgColor);
+        mPaint.setStyle(Paint.Style.FILL);
+        canvas.drawPath(mPathTriangle, mPaint);
 
-        Log.d("msg", "mLabelBgColor = " + mLabelBgColor);
+        mPaint.setXfermode(null);
+        drawLabelText(canvas);
+
+    }
+    //三角形路径
+    private void drawTrianglePath() {
 
         mPathTriangle.moveTo(0, (float) setHeight);
         mPathTriangle.lineTo(0, 0);
         mPathTriangle.lineTo((float) setWidth, 0);
         mPathTriangle.close();
+    }
 
-        //绘制圆角矩形
-        //圆角矩形向四周空出边长宽度距离，不然显示会不好看
-        mPathRoundRect.addRoundRect(mRectFRoundRect, mRoundRectRadius, mRoundRectRadius, Path.Direction.CW);
+    //画Label文字
+    private void drawLabelText(@NonNull Canvas canvas) {
 
-        canvas.save();
-        canvas.clipPath(mPathRoundRect, Region.Op.INTERSECT);
-        canvas.drawPath(mPathTriangle, mTrianglePaint);
-        canvas.drawPath(mPathRoundRect, mRoundRectPaint);
-        canvas.restore();
-
-
-        //画Label文字
-
+        mLabelTextPaint.setColor(mLabelTextColor);
+        mLabelTextPaint.setTextSize(mLabelTextSize);
         mPathLabelLine.moveTo(0, (float) setHeight);
         mPathLabelLine.lineTo((float) setWidth, 0);
         //如果等于0就使用内部计算的值，否则就用设置的值
@@ -207,7 +211,6 @@ public class LabelTextView extends TextView {
         } else {
             canvas.drawTextOnPath(mLabelText, mPathLabelLine, mLabelTextPaddingCenter, mLabelTextPaddingBottom, mLabelTextPaint);
         }
-
     }
 
     /**
