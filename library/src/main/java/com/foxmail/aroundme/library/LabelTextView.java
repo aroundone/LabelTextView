@@ -5,25 +5,18 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.graphics.Region;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-
 /**
  * Created by gzl on 1/17/17.
- * <p>
- * 自定义标签View，继承于TextView
  */
 
 public class LabelTextView extends TextView {
@@ -43,20 +36,22 @@ public class LabelTextView extends TextView {
     //文字大小
     private float mLabelTextSize = sp2px(8);
     //文字内容
-    private String mLabelText = "Default";
+    private String mLabelText;
     //文字距离底部偏移量
     private float mLabelTextPaddingBottom = -dp2px(2);
     //文字和中线的间距
     private float mLabelTextPaddingCenter = Float.MAX_VALUE;
     //背景颜色
-    private int mLabelBgColor = Color.YELLOW;
-    //画三角形和圆角矩形画笔
-    private Paint mPaint;
+    private int mLabelBgColor = Color.BLUE;
+    //覆盖图层画笔
+    private Paint mTrianglePaint;
     private Path mPathTriangle;
 
     /**
      * 圆角矩形
      */
+    //画笔
+    private Paint mRoundRectPaint;
     //边长背景颜色
     private int mRoundRectBorderBg = Color.parseColor("#00000000");
     //边长宽度
@@ -81,8 +76,7 @@ public class LabelTextView extends TextView {
     private float weightH = 2;
     //DPI
     private float scale = getContext().getResources().getDisplayMetrics().density;
-    //抗锯齿
-    private PaintFlagsDrawFilter paintFlagsDrawFilter;
+    //混合模式
     private PorterDuffXfermode xfermode;
 
     public LabelTextView(Context context) {
@@ -121,8 +115,8 @@ public class LabelTextView extends TextView {
         }
 
         initLabelTextPaint();
-        initPaint();
-        initRoundRect();
+        initTrianglePaint();
+        initRoundRectPaint();
     }
 
 
@@ -131,16 +125,24 @@ public class LabelTextView extends TextView {
         mLabelTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mLabelTextPaint.setTextAlign(Paint.Align.CENTER);
         mLabelTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        mLabelTextPaint.setAntiAlias(true);
         mPathLabelLine = new Path();
     }
 
-    private void initPaint() {
+    private void initTrianglePaint() {
         //初始化绘制三角形背景的画笔
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mTrianglePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mTrianglePaint.setAntiAlias(true);
         mPathTriangle = new Path();
     }
 
-    private void initRoundRect() {
+    private void initRoundRectPaint() {
+        //绘制圆角矩形画笔
+        mRoundRectPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mRoundRectPaint.setColor(mRoundRectBorderBg);
+        mRoundRectPaint.setStyle(Paint.Style.STROKE);
+        mRoundRectPaint.setStrokeWidth(mRoundRectBorderWidth);
+        mRoundRectPaint.setAntiAlias(true);
         mPathRoundRect = new Path();
     }
 
@@ -157,9 +159,8 @@ public class LabelTextView extends TextView {
         mRectFRoundRect.top = dp2px(mRoundRectBorderWidth) / scale;
         mRectFRoundRect.right = w - dp2px(mRoundRectBorderWidth) / scale;
         mRectFRoundRect.bottom = h - dp2px(mRoundRectBorderWidth) / scale;
-
-        paintFlagsDrawFilter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
-        xfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP);
+        //混合模式
+        xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
     }
 
     @Override
@@ -169,40 +170,29 @@ public class LabelTextView extends TextView {
         if (!isShow) {
             return;
         }
-        canvas.setDrawFilter(paintFlagsDrawFilter);
 
-        mPaint.setColor(Color.TRANSPARENT);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(mRoundRectBorderWidth);
-        //圆角矩形向四周空出边长宽度距离
+        //字为空就不绘制
+        if (TextUtils.isEmpty(mLabelText)) {
+            return;
+        }
+
+        //绘制圆角矩形
         mPathRoundRect.addRoundRect(mRectFRoundRect, mRoundRectRadius, mRoundRectRadius, Path.Direction.CW);
-        canvas.drawPath(mPathRoundRect, mPaint);
-        //混合模式
-        mPaint.setXfermode(xfermode);
-        //三角形
-        drawTrianglePath();
-        mPaint.setColor(mLabelBgColor);
-        mPaint.setStyle(Paint.Style.FILL);
-        canvas.drawPath(mPathTriangle, mPaint);
-
-        mPaint.setXfermode(null);
-        drawLabelText(canvas);
-
-    }
-    //三角形路径
-    private void drawTrianglePath() {
-
+        canvas.drawPath(mPathRoundRect, mRoundRectPaint);
+        //绘制三角形
         mPathTriangle.moveTo(0, (float) setHeight);
         mPathTriangle.lineTo(0, 0);
         mPathTriangle.lineTo((float) setWidth, 0);
         mPathTriangle.close();
-    }
-
-    //画Label文字
-    private void drawLabelText(@NonNull Canvas canvas) {
+        //混合模式
+        mTrianglePaint.setColor(mLabelBgColor);
+        mTrianglePaint.setXfermode(xfermode);
+        canvas.drawPath(mPathTriangle, mTrianglePaint);
+        mTrianglePaint.setXfermode(null);
 
         mLabelTextPaint.setColor(mLabelTextColor);
         mLabelTextPaint.setTextSize(mLabelTextSize);
+        //画Label文字
         mPathLabelLine.moveTo(0, (float) setHeight);
         mPathLabelLine.lineTo((float) setWidth, 0);
         //如果等于0就使用内部计算的值，否则就用设置的值
@@ -244,21 +234,6 @@ public class LabelTextView extends TextView {
         return (float) (molecule / denominator);
     }
 
-    private float double2Float(double dou) {
-        return Float.parseFloat(String.valueOf(dou));
-    }
-
-    private int dp2px(float dpValue) {
-        final float scale = getContext().getResources().getDisplayMetrics().density;
-        this.scale = scale;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    private float sp2px(float spValue) {
-        final float scale = getContext().getResources().getDisplayMetrics().scaledDensity;
-        return spValue * scale;
-    }
-
     public LabelTextView setLabelText(String mLabelText) {
         this.mLabelText = mLabelText;
         return this;
@@ -283,5 +258,16 @@ public class LabelTextView extends TextView {
     public void update() {
         isShow = true;
         invalidate();
+    }
+
+    private int dp2px(float dpValue) {
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        this.scale = scale;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    private float sp2px(float spValue) {
+        final float scale = getContext().getResources().getDisplayMetrics().scaledDensity;
+        return spValue * scale;
     }
 }

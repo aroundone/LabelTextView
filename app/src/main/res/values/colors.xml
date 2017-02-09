@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="pop_channel_bg_color">#f6f6f6</color>
+    <color name="brand_color">#ff8800</color>
 </resources>
