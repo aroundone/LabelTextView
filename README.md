@@ -108,6 +108,11 @@ labelTextView.setLabelBgColor(context.getResources()
 
 ## 版本更新
 
+* 1.2
+修改混合模式
+
+之前一直是用裁剪方式，现在换成混合模式实现
+
 * 1.1
 
 修改裁剪方式的实现
