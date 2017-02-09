@@ -33,11 +33,13 @@ http://blog.csdn.net/aroundme/article/details/54630352
 
 ## 注意
 
-labelHeightWeight和labelWidthWeight两个属性都有默认值，
+* labelHeightWeight和labelWidthWeight两个属性都有默认值，
 如果使用这个属性的话一定要大于0，不然会抛出异常
 
-考虑到在大部分场合下需要第一时间显示的几率很小，大部分是通过代码调用显示，
-所以默认是不显示标签的。
+* 请在TextView中设置background和textColor(可选),具体可参考demo
+
+* 考虑到在大部分场合下需要第一时间显示的几率很小，大部分是通过代码调用显示，
+所以默认是不显示标签的。显示代码见使用
 
 ## 使用
 
