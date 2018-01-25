@@ -5,8 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/LabelTextView.iml" filepath="$PROJECT_DIR$/.idea/LabelTextView.iml" />
       <module fileurl="file://$PROJECT_DIR$/LabelTextView.iml" filepath="$PROJECT_DIR$/LabelTextView.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
     </modules>
   </component>

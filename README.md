@@ -1,7 +1,27 @@
 # LabelTextView
 
+## 引入方式
+```
+allprojects {
+ 	repositories {
+ 		...
+ 		maven { url 'https://jitpack.io' }
+ 	}
+ }
+
+```
+
+```
+
+    dependencies {
+	        compile 'com.github.aroundone:LabelTextView:1.0'
+	}
+
+```
+
 ## 简介
 一款文字标签，继承于TextView，实现TextView加标签。
+TextView还可以按照您以前的逻辑实现，如需在TextView上添加标签，见下文。
 
 标签是由一个圆角矩形和一个三角形绘制而成，使用了画布的裁剪
 
